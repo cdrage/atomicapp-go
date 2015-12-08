@@ -1,10 +1,10 @@
 PACKAGES = $(shell go list ./...) 
 
 all:
-	go build -o atomicgo .
+	go build -o atomicapp .
 
 build: deps
-	go build -o atomicgo .
+	go build -o atomicapp .
 
 test:
 	go test -v ./...

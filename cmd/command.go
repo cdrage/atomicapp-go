@@ -12,8 +12,8 @@ import (
 func InitApp(commands []cli.Command) *cli.App {
 	var logLevel int
 	app := cli.NewApp()
-	app.Name = "atomicgo"
-	app.Usage = "A nulecule implementation written in Go"
+	app.Name = "atomicapp"
+	app.Usage = "A Nulecule implementation written in Go"
 	app.Version = constants.ATOMICAPPVERSION
 	app.Commands = commands
 	app.Flags = globalFlagSet()
