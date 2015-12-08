@@ -1,7 +1,7 @@
 package provider
 
 import (
-	"github.com/alecbenson/nulecule-go/atomicgo/constants"
+	"github.com/cdrage/nulecule-go/constants"
 
 	"path/filepath"
 	"strings"

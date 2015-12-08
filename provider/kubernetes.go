@@ -9,9 +9,9 @@ import (
 	"path/filepath"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/alecbenson/nulecule-go/atomicgo/constants"
-	"github.com/alecbenson/nulecule-go/atomicgo/parser"
-	"github.com/alecbenson/nulecule-go/atomicgo/utils"
+	"github.com/cdrage/nulecule-go/constants"
+	"github.com/cdrage/nulecule-go/parser"
+	"github.com/cdrage/nulecule-go/utils"
 )
 
 //Kubernetes is a provider for kubernetes orchestration

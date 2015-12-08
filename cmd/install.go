@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/Sirupsen/logrus"
-	"github.com/alecbenson/nulecule-go/atomicgo/nulecule"
+	"github.com/cdrage/nulecule-go/nulecule"
 	"github.com/codegangsta/cli"
 )
 
