@@ -14,7 +14,7 @@ format:
 	@go fmt $(PACKAGES)
 
 clean:
-	rm atomicgo
+	rm atomicapp
 
 deps:
 	@echo "--> Installing build dependencies"

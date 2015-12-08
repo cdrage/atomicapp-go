@@ -1,26 +1,35 @@
-# Nulecule-go
-####  (A Golang implementation of the [Nulecule](https://github.com/projectatomic/nulecule) spec)
+# Atomic App in Go!
+####  (A Go implementation of the [Nulecule](https://github.com/projectatomic/nulecule) specification)
 
-## Dependencies
-- A version of docker that supports the `--format flag` for `docker -V`.
-  -  [Included since PR #14194](https://github.com/docker/docker/pull/14194)
-- You will likely want a working version of [Kubernetes](https://github.com/GoogleCloudPlatform/kubernetes) installed on your system:
-    -  [Fedora Instructions](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/getting-started-guides/fedora/fedora_manual_config.md)
-    - [CentOS instructions](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/getting-started-guides/centos/centos_manual_config.md)
-- [Go-yaml-v1](https://github.com/go-yaml/yaml/tree/v1)
-  - `yum install golang-gopkg-yaml-devel.noarch`
-- [Sirupsen's Logrus](https://github.com/Sirupsen/logrus)
-  - `yum install golang-github-Sirupsen-logrus-devel.noarch`
-- [Codegangsta's CLI](https://github.com/codegangsta/cli)
-  - `yum install golang-github-codegangsta-cli-devel.noarch`
+## Code dependencies
+This implemention is currently __100%__ in Go. `1.5.1` or higher is required. You can find the current Go dependencies we rely on within the `scripts/deps.sh` script.
 
-Note that if you are installing these dependencies through `yum`, you will need to add `/usr/share/gocode` to your `$GOPATH`:
-  - `export GOPATH=$GOPATH:/usr/share/gocode`
+## Other depedencies
+Required: 
+  - Version 1.8.3 of Docker or higher
+Option:
+  - Kubernetes provider: A version of Kubernetes using the v2 API. [Fedora Instructions](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/getting-started-guides/fedora/fedora_manual_config.md) [CentOS instructions](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/getting-started-guides/centos/centos_manual_config.md)
 
 ## Installation
-Clone the repository to within your `$GOPATH` and build the binary using the included makefile
-Then, move the resulting binary somewhere within your `$PATH`
-The program can now be invoked with `atomicgo`
+```bash
+go get github.com/cdrage/atomicapp-go
+cd $GOPATH/src/github.com/cdrage/atomicapp-go
+make build
+```
+
+```bash
+▶ ./atomicapp 
+NAME:
+   atomicapp - A Nulecule implementation written in Go
+
+USAGE:
+   ./atomicapp [global options] command [command options] [arguments...]
+   
+VERSION:
+   0.1.1
+
+...
+```
 
 ## Example Usage
 ### Installing a Nulecule application
@@ -51,12 +60,54 @@ Verify that your application is running: `kubectl get pods`
 ### Un-deploying a Nulecule application
 When you are done with your application, simply run `atomicgo stop` in your installation directory
 
-### Running tests
-You may run the project tests with `make test`
+## Makefile development
 
-### Supported Providers
-The following providers are currently supported:
+99% of the development work-flow is within the Makefile. Develop. Use it. Contribute.
+
+`make build`
+Build an `atomicapp` binary blob for you.
+
+`make deps`
+This is ran on each build. Go checks what build dependencies you are missing and fixes them accordingly.
+
+`make updatedeps`
+Verbose check on each depedency if it's been updated.
+
+`make test`
+Runs `go fmt` in all directories.
+
+`make clean`
+Remove `atomicapp` binary blob.
+
+`make format`
+Runs `go fmt` in all directories.
+
+## Supported Providers
+The following providers currently supported by this implementation are:
   * Docker
   * Kubernetes
+  * Openshift (soooonnn!)
 
-  Openshift will be available to use as a provider soon.
+## Communication channels
+
+* IRC: #nulecule (On Freenode)
+* Mailing List: [container-tools@redhat.com](https://www.redhat.com/mailman/listinfo/container-tools)
+
+## Copyright
+
+Copyright (C) 2015 Red Hat Inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+The GNU Lesser General Public License is provided within the file lgpl-3.0.txt.
