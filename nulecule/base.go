@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/cdrage/nulecule-go/constants"
-	"github.com/cdrage/nulecule-go/parser"
-	"github.com/cdrage/nulecule-go/utils"
+	"github.com/cdrage/atomicapp-go/constants"
+	"github.com/cdrage/atomicapp-go/parser"
+	"github.com/cdrage/atomicapp-go/utils"
 	"gopkg.in/yaml.v1"
 )
 

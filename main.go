@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/cdrage/nulecule-go/cmd"
+	"github.com/cdrage/atomicapp-go/cmd"
 	"github.com/codegangsta/cli"
 )
 

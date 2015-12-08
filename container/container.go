@@ -2,8 +2,8 @@ package container
 
 import (
 	"fmt"
-	"github.com/cdrage/nulecule-go/constants"
-	"github.com/cdrage/nulecule-go/utils"
+	"github.com/cdrage/atomicapp-go/constants"
+	"github.com/cdrage/atomicapp-go/utils"
 	"os/exec"
 )
 

@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/cdrage/nulecule-go/nulecule"
+	"github.com/cdrage/atomicapp-go/nulecule"
 	"github.com/codegangsta/cli"
 )
 

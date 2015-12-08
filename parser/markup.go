@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"github.com/cdrage/nulecule-go/utils"
+	"github.com/cdrage/atomicapp-go/utils"
 	"gopkg.in/yaml.v1"
 	"io/ioutil"
 	"unicode"

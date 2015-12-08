@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/cdrage/nulecule-go/constants"
-	"github.com/cdrage/nulecule-go/utils"
+	"github.com/cdrage/atomicapp-go/constants"
+	"github.com/cdrage/atomicapp-go/utils"
 )
 
 //ArtifactEntry is a source control repository struct used to specify an artifact
