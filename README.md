@@ -2,12 +2,15 @@
 ####  (A Go implementation of the [Nulecule](https://github.com/projectatomic/nulecule) specification)
 
 ## Code dependencies
-This implemention is currently __100%__ in Go. `1.5.1` or higher is required. You can find the current Go dependencies we rely on within the `scripts/deps.sh` script.
+This implemention is currently __100%__ in Go. `1.5.1` or higher is required. 
 
-## Other depedencies
+Go-specific:
+  - You can find the current Go dependencies we rely on within the `scripts/deps.sh` file.
+
 Required: 
-  - Version 1.8.3 of Docker or higher
-Option:
+  - Version 1.8.3 of Docker or higher.
+
+Provider-specific:
   - Kubernetes provider: A version of Kubernetes using the v2 API. [Fedora Instructions](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/getting-started-guides/fedora/fedora_manual_config.md) [CentOS instructions](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/getting-started-guides/centos/centos_manual_config.md)
 
 ## Installation
@@ -35,30 +38,30 @@ VERSION:
 ### Installing a Nulecule application
  * Make a directory in which your application will be installed in and `cd` into it.
  * install a valid projectatomic app -- for example, any of the following will work:
-   * `atomicgo install projectatomic/guestbookgo-app`
-   * `atomicgo install projectatomic/helloapache --destination=/home/alecbenson/Desktop/testproject`
+   * `./atomicapp install projectatomic/guestbookgo-app`
+   * `./atomicapp install projectatomic/helloapache --destination=/home/alecbenson/Desktop/testproject`
      * If no `--destination` flag is provided, the current working directory is implicitly used
 
 ### Running a Nulecule application
- Simply deploy the application: `atomicgo run`
+ Simply deploy the application: `./atomicapp run`
 
  You may also specify where to run the project from by specifying a directory after `run`:
-   * `atomicgo run /home/alecbenson/Desktop/testproject`
+   * `./atomicapp run /home/alecbenson/Desktop/testproject`
 
   Before running your application, you will notice that there is now an `answers.conf.sample` file. It contains default values for all parameters provided in the `Nulecule` file that is also within your installation directory. You may edit any of the values within this file. By renaming the sample file to `answers.conf`, these values will be implicitly provided when the application is run.
 
 By running the project with the `--ask` flag, the program will prompt the user for any parameters that are not specified in the `answers.conf` file (if it exists):
-  * `atomicgo run /home/alecbenson/Desktop/testproject --ask`
+  * `./atomicapp run /home/alecbenson/Desktop/testproject --ask`
 
 You may also provide the `--write` flag to tell the program where to look for your answers.conf file. This is useful if you already have an answers file somewhere on your system. For example, both of the following are valid:
-  * `atomicgo run . --write=/home/abenson/Desktop/`
-  * `atomicgo run . --write=/home/abenson/Desktop/answers.conf`
+  * `./atomicapp run . --write=/home/abenson/Desktop/`
+  * `./atomicapp run . --write=/home/abenson/Desktop/answers.conf`
 If no `--write` flag is provided, the program looks for the answers file in the installation directory by default.
 
 Verify that your application is running: `kubectl get pods`
 
 ### Un-deploying a Nulecule application
-When you are done with your application, simply run `atomicgo stop` in your installation directory
+When you are done with your application, simply run `./atomicapp stop` in your installation directory
 
 ## Makefile development
 
@@ -74,7 +77,7 @@ This is ran on each build. Go checks what build dependencies you are missing and
 Verbose check on each depedency if it's been updated.
 
 `make test`
-Runs `go fmt` in all directories.
+Runs `go test` in all directories.
 
 `make clean`
 Remove `atomicapp` binary blob.
