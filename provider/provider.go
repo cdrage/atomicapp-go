@@ -69,7 +69,13 @@ func (c *Config) WorkDirectory() string {
 	return filepath.Join(c.targetPath, constants.WORKDIR)
 }
 
-//New instantiates the provider with the give name
+/*
+
+New instantiates the provider with the give name
+
+Notes: This is different than atomicapp python implementation, this implementation explicitly implies the provider, while in the python implementation it detects all available providers via folder. i'm assuming that since Go is idiomatic it's best to do it this way
+
+*/
 func New(provider string, targetPath string, dryRun bool) Provider {
 	sanitizedProvider := strings.ToLower(provider)
 	switch sanitizedProvider {
