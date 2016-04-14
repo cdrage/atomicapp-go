@@ -17,7 +17,7 @@ const (
 	DOCKER_PREFIX = "docker://"
 )
 
-//PathExists verifies that the given path points to a valid file or directory
+//Verifies that the given path points to a valid file or directory
 func PathExists(path string) bool {
 	if path == "" {
 		return false
@@ -33,7 +33,7 @@ func PathExists(path string) bool {
 	return true
 }
 
-//PathIsFile returns true if the path points to a vald file
+//Returns true if the path points to a vald file
 func PathIsFile(path string) bool {
 	if path == "" {
 		return false
@@ -46,7 +46,7 @@ func PathIsFile(path string) bool {
 	return info.Mode().IsRegular()
 }
 
-//PathIsDirectory returns true if the path points to a valid directory
+//Returns true if the path points to a valid directory
 func PathIsDirectory(path string) bool {
 	if path == "" {
 		return false
@@ -59,7 +59,7 @@ func PathIsDirectory(path string) bool {
 	return info.IsDir()
 }
 
-//SanitizePath Strips the protocol from the provided path
+//Strips the protocol from the provided path
 func SanitizePath(url string) string {
 	if strings.HasPrefix(url, FILE_PREFIX) {
 		return strings.TrimPrefix(url, FILE_PREFIX)
@@ -67,7 +67,7 @@ func SanitizePath(url string) string {
 	return url
 }
 
-//CheckCommandOutput runs the specified command and checks the output for errors.
+//Runs the specified command and checks the output for errors.
 //Returns output of the command and the error, if any.
 //The quiet boolean can be used to supress logging of output
 func CheckCommandOutput(command *exec.Cmd, quiet bool) ([]byte, error) {
@@ -84,7 +84,7 @@ func CheckCommandOutput(command *exec.Cmd, quiet bool) ([]byte, error) {
 	return out, nil
 }
 
-//GenerateUniqueName generates a unique name with the given prefix.
+//Generates a unique name with the given prefix.
 //The name is in the format prefix-xxxxxx where 'xxxxxx' is
 //a short string of hex encoded characters
 func GenerateUniqueName(prefix string) (string, error) {
@@ -101,14 +101,14 @@ func GenerateUniqueName(prefix string) (string, error) {
 	return tmpDir, nil
 }
 
-//GetBaseImageName takes in an image name (like projectatomic/helloapache:latest)
+//Takes in an image name (like projectatomic/helloapache:latest)
 //and extracts the base name (helloapache)
 func GetBaseImageName(image string) string {
 	baseName := filepath.Base(image)
 	return strings.Split(baseName, ":")[0]
 }
 
-//WriteToFile opens the specified file, wrties the data to the file, and closes
+//Opens the specified file, wrties the data to the file, and closes
 func WriteToFile(data []byte, f *os.File) error {
 	defer f.Close()
 	_, err := f.Write(data)

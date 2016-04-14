@@ -14,7 +14,6 @@ import (
 	"github.com/cdrage/atomicapp-go/utils"
 )
 
-//Kubernetes is a provider for kubernetes orchestration
 type Kubernetes struct {
 	*Config
 	OrderedArtifacts []string
@@ -30,7 +29,6 @@ type metadata struct {
 	Name string
 }
 
-//NewKubernetes instantiates a new Kubernetes provider
 func NewKubernetes(targetPath string, dryRun bool) *Kubernetes {
 	provider := new(Kubernetes)
 	provider.Config = new(Config)
@@ -39,7 +37,6 @@ func NewKubernetes(targetPath string, dryRun bool) *Kubernetes {
 	return provider
 }
 
-//Init the Docker Provider
 func (p *Kubernetes) Init() error {
 	var err error
 	p.KubeCtl, err = p.findKubeCtlPath()
@@ -49,7 +46,6 @@ func (p *Kubernetes) Init() error {
 	return nil
 }
 
-//Deploy the Kubernetes Provider
 func (p *Kubernetes) Deploy() error {
 	for _, artifact := range p.Artifacts() {
 		//Form the absolute path of the artifact
@@ -153,7 +149,7 @@ func (p *Kubernetes) resetReplica(name string) error {
 	return nil
 }
 
-//deletePod removes the kubernetes pod
+//Removes the kubernetes pod
 func (p *Kubernetes) deletePod(artifactPath string) error {
 	if !utils.PathExists(artifactPath) {
 		logrus.Errorf("No valid artifact could be found at %s", artifactPath)

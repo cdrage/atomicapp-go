@@ -11,7 +11,7 @@ import (
 	"github.com/cdrage/atomicapp-go/utils"
 )
 
-//Install starts the install process
+//Starts the install process
 func (b *Base) Install() error {
 	app := b.App()
 	target := b.Target()
@@ -38,7 +38,7 @@ func (b *Base) Install() error {
 	return nil
 }
 
-//InstallDependencies install all external sources
+//Install all external sources
 func (b *Base) InstallDependencies() error {
 	components := b.MainfileData.Graph
 	for _, c := range components {
@@ -70,7 +70,7 @@ func (b *Base) InstallDependencies() error {
 	return nil
 }
 
-//copyFromContainer creates the container with the given image name and copies the applicationEntity directory
+//Creates the container with the given image name and copies the applicationEntity directory
 //to a temporary directory. Once this is done, the container is then cleaned up
 //returns the path to the copied contents
 func copyFromContainer(image string) (string, error) {
@@ -100,7 +100,7 @@ func copyFromContainer(image string) (string, error) {
 	return tmpDirPath, nil
 }
 
-//checkInstallOverwrite returns a nil error if no nulecule app exists in the target directory.
+//Returns a nil error if no nulecule app exists in the target directory.
 //If a nulecule app does exist in the target directory, it checks if it has a matching app ID and
 //if it does, allows the installation process to continue. If a different nulecule app has been found,
 //it warns the user that they are overwriting an existing app and returns an error status

@@ -9,7 +9,7 @@ import (
 	"github.com/Sirupsen/logrus"
 )
 
-//Provider defines functions that a provider plugin must include
+//Functions that a provider plugin must include
 type Provider interface {
 	Init() error
 	Deploy() error
@@ -22,7 +22,7 @@ type Provider interface {
 	addCLIPaths(paths ...string)
 }
 
-//Config contains general configuration parameters that are used by
+//Contains general configuration parameters that are used by
 //each supported provider
 type Config struct {
 	//A list of artifacts for the provider to deploy
@@ -39,32 +39,31 @@ type Config struct {
 	targetPath string
 }
 
-//addCLIPaths adds filepath(s) to check for the provider program in
+//Adds filepath(s) to check for the provider program in
 func (c *Config) addCLIPaths(paths ...string) {
 	c.cliPath = append(paths, c.cliPath...)
 }
 
-//CLIPath gets a list of paths to search for the provider executable
+//Gets a list of paths to search for the provider executable
 func (c *Config) CLIPath() []string {
 	return c.cliPath
 }
 
-//Artifacts gets the list of artifacts belonging to the provider
+//Gets the list of artifacts belonging to the provider
 func (c *Config) Artifacts() []string {
 	return c.artifacts
 }
 
-//SetArtifacts sets the list of artifacts belonging to the provider
+//Sets the list of artifacts belonging to the provider
 func (c *Config) SetArtifacts(artifacts []string) {
 	c.artifacts = artifacts
 }
 
-//DryRun the dry run value. In a dry run, no commands are actually run.
 func (c *Config) DryRun() bool {
 	return c.dryRun
 }
 
-//WorkDirectory returns the absolute path to the .workdir directory
+//Returns the absolute path to the .workdir directory
 func (c *Config) WorkDirectory() string {
 	return filepath.Join(c.targetPath, constants.WORKDIR)
 }

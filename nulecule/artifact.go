@@ -11,13 +11,13 @@ import (
 	"github.com/cdrage/atomicapp-go/utils"
 )
 
-//ArtifactEntry is a source control repository struct used to specify an artifact
+//Source control repository struct used to specify an artifact
 type ArtifactEntry struct {
 	Path string
-	Repo SrcControlRepo
+	Repo SourceRepo
 }
 
-type SrcControlRepo struct {
+type SourceRepo struct {
 	Inherit []string
 	Source  string
 	Path    string
@@ -26,8 +26,7 @@ type SrcControlRepo struct {
 	Tag     string
 }
 
-//IsExternal returns true if the component is an external resource, and false if the component is
-//A local resource
+//Returns true if the component is an external resource, and false if the component is a local resource
 func IsExternal(component Component) bool {
 	if len(component.Artifacts) == 0 {
 		return true
@@ -38,7 +37,7 @@ func IsExternal(component Component) bool {
 	return true
 }
 
-//GetSourceImage fetches the sanitized source path of the image
+//Fetches the sanitized source path of an image
 func GetSourceImage(component Component) (string, error) {
 	source := component.Source
 	if !IsExternal(component) {
@@ -54,7 +53,7 @@ func GetSourceImage(component Component) (string, error) {
 	return "", errors.New("Could not get source image")
 }
 
-//GetExternalAppDirectory returns the directory in which ane external app is installed to
+//Create an external app directory
 func (b *Base) makeExternalAppDirectory(c Component) (string, error) {
 	fp := b.GetExternallAppDirectory(c)
 	err := os.MkdirAll(fp, 0700)
@@ -65,13 +64,12 @@ func (b *Base) makeExternalAppDirectory(c Component) (string, error) {
 	return fp, nil
 }
 
-//GetExternallAppDirectory returns the directory in which an external app is installed to
+//Get the xternal app directory
 func (b *Base) GetExternallAppDirectory(c Component) string {
 	return filepath.Join(b.Target(), constants.EXTERNAL_APP_DIR, c.Name)
 }
 
-//Generates a new work directory
-//Returns a path to the directory
+//Generates a new work directory and return the path to it
 func makeWorkDirectory(targetPath string) (string, error) {
 	workdir := filepath.Join(targetPath, constants.WORKDIR)
 	//If the .workdir directory does not exist in targetPath, make it.
@@ -86,7 +84,7 @@ func makeWorkDirectory(targetPath string) (string, error) {
 	return workdir, nil
 }
 
-//SaveArtifact writes a templated artifact to the .workdir directory.
+//Writes a templated artifact to the .workdir directory
 //If .workdir does not exist, it is created.
 //data - a []byte of the templated file
 //name - the name of the file to write to

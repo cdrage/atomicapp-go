@@ -13,12 +13,10 @@ import (
 	"strings"
 )
 
-//Docker is a provider for Kubernetes
 type Docker struct {
 	*Config
 }
 
-//NewDocker instantiates a new Kubernetes provider
 func NewDocker(targetPath string, dryRun bool) *Docker {
 	provider := new(Docker)
 	provider.Config = new(Config)
@@ -27,13 +25,11 @@ func NewDocker(targetPath string, dryRun bool) *Docker {
 	return provider
 }
 
-//Init the Docker provider
 func (p *Docker) Init() error {
 	p.checkVersion()
 	return nil
 }
 
-//Deploy the Docker Provider
 func (p *Docker) Deploy() error {
 	//Iterate through artifact entries for the docker provider
 	for _, artifact := range p.Artifacts() {
@@ -57,7 +53,6 @@ func (p *Docker) Undeploy() error {
 	return nil
 }
 
-//Issues the commands in the given file to docker
 func (p *Docker) dockerCmd(artifactFile string) error {
 	file, err := ioutil.ReadFile(artifactFile)
 	if err != nil {

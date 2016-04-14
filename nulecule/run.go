@@ -9,7 +9,7 @@ import (
 	"github.com/cdrage/atomicapp-go/utils"
 )
 
-//Run starts the nulecule run process to deploy a clustered application
+//Starts the nulecule run process to deploy a clustered application
 func (b *Base) Run(ask bool, answersFile string) {
 	if err := b.ReadMainFile(); err != nil {
 		return
@@ -21,7 +21,7 @@ func (b *Base) Run(ask bool, answersFile string) {
 	b.deployGraph(ask, answersFile)
 }
 
-//processComponent iterates through the artifacts in the component and deploy them
+//Iterates through the artifacts in the component and deploy them
 func (b *Base) processComponent(c *Component, ask bool) {
 	//Iterate through the component and deploy all of its providers
 	var prov provider.Provider
@@ -37,7 +37,7 @@ func (b *Base) processComponent(c *Component, ask bool) {
 	}
 }
 
-//processArtifacts iterates through each artifact entry
+//Iterates through each artifact entry
 //It then substitutes the Nulecule parameters in and saves them in the workdir
 func (b *Base) processArtifacts(c *Component, provider string, ask bool) {
 	for _, artifactEntry := range c.Artifacts[provider] {
@@ -55,7 +55,7 @@ func (b *Base) processArtifacts(c *Component, provider string, ask bool) {
 	}
 }
 
-//deployGraph starts the deploy process for all components
+//Starts the deploy process for all components
 func (b *Base) deployGraph(ask bool, answersFile string) {
 	graph := b.MainfileData.Graph
 

@@ -12,10 +12,10 @@ import (
 	"gopkg.in/yaml.v1"
 )
 
-//Answers is a map of configuration parameters and the value to set for them
+//A map of configuration parameters and values
 type Answers map[string]string
 
-//LoadAnswers Unmarshals the answers from the answers.conf file into the base AnswersData
+//Unmarshals the answers from the answers.conf file into the base method
 func (b *Base) LoadAnswers() error {
 	//if a directory was provided...
 	fp := b.AnswersDir()
@@ -38,7 +38,7 @@ func (b *Base) LoadAnswers() error {
 	return nil
 }
 
-//WriteAnswersSample creates a new answers.conf.sample file to update to
+//Creates a new answers.conf.sample file
 func (b *Base) WriteAnswersSample() error {
 	sampleAnswersPath := filepath.Join(b.AnswersDir(), constants.ANSWERS_FILE_SAMPLE)
 	if err := b.writeAnswers(sampleAnswersPath); err != nil {
@@ -48,7 +48,7 @@ func (b *Base) WriteAnswersSample() error {
 	return nil
 }
 
-//writeAnswers will marshal the answers map and write it to the sample file
+//Marshal the answers map and write it to the sample file
 func (b *Base) writeAnswers(sampleAnswersPath string) error {
 	sampleAnswersFile, err := b.createAnswersFile(sampleAnswersPath)
 	if err != nil {
@@ -76,7 +76,7 @@ func (b *Base) createAnswersFile(sampleAnswersPath string) (*os.File, error) {
 	return sampleAnswersFile, nil
 }
 
-//UpdateComponentAnswers updates the base answers data with a component
+//Update the base answers data with a component
 func (b *Base) updateComponentAnswers(c Component) error {
 	componentAnswers := b.AnswersData[c.Name]
 	if componentAnswers == nil {

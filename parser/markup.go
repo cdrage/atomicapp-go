@@ -10,18 +10,18 @@ import (
 	"unicode"
 )
 
-//Parser is responsible for reading a markup language and parsing
+//Responsible for reading a markup language and parsing
 //it into a struct
 type Parser struct {
 	markupFile string
 }
 
-//NewParser instantiates a new parser for reading markup files
+//Instantiates a new parser for reading markup files
 func NewParser(markupFile string) *Parser {
 	return &Parser{markupFile: markupFile}
 }
 
-//Unmarshal arses a markup file into the given interface object
+//Parses a markup file into the given interface object
 func (p *Parser) Unmarshal(result interface{}) error {
 	if !utils.PathExists(p.markupFile) {
 		return errors.New("File does not exist")
@@ -38,7 +38,7 @@ func (p *Parser) Unmarshal(result interface{}) error {
 	return yaml.Unmarshal(f, result)
 }
 
-//isJSON checks the file for an opening brace
+//Checks the file for an opening brace
 //to determine if it is a json file or not
 func isJSON(data []byte) bool {
 	spacesRemoved := bytes.TrimLeftFunc(data, unicode.IsSpace)

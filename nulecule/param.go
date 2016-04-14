@@ -10,7 +10,7 @@ import (
 	"github.com/Sirupsen/logrus"
 )
 
-//Param represents the Component parameters
+//Represents the Component parameters
 type Param struct {
 	Name        string
 	Description string
@@ -20,13 +20,13 @@ type Param struct {
 	AskedFor    bool
 }
 
-//Constraint is a struct representing a constaint for a parameter object
+//Struct representing a constaint for a parameter object
 type Constraint struct {
 	AllowedPattern string `json:"allowed_pattern",yaml:"allowed_pattern"`
 	Description    string
 }
 
-//CheckConstraints returns true if the parameter has matching, valid constraints. False otherwise.
+//Returns true if the parameter has matching, valid constraints. False otherwise.
 func checkConstraints(param *Param) (bool, error) {
 	value := param.Default
 	for _, constraint := range param.Constraints {
@@ -44,7 +44,7 @@ func checkConstraints(param *Param) (bool, error) {
 	return true, nil
 }
 
-//ApplyTemplate reads the file located at artifactPath and replaces all parameters
+//Reads the file located at artifactPath and replaces all parameters
 //with those specified in the nulecule parameters objects
 //artifactPath is the path provided by the artifact. The data from this file
 //is loaded, and all variables ($var_name) get replaced with their correct values
@@ -65,8 +65,8 @@ func (b *Base) applyTemplate(artifactPath string, c *Component, ask bool) ([]byt
 	return data, nil
 }
 
-//makeTemplateReplacements is a helper function to ApplyTemplate that will take in the artifact file
-//And output a template with replacements made
+//A helper function to ApplyTemplate that will take in the artifact file
+//and output a template with replacements made
 func (b *Base) makeTemplateReplacements(data []byte, c *Component, ask bool) ([]byte, error) {
 	//Replaces every instance of $param with
 	//the value provided in the nulecule file

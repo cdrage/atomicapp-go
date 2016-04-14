@@ -12,28 +12,26 @@ import (
 	"gopkg.in/yaml.v1"
 )
 
-//Base contains a set of nulecule config properties
-//It is set by the atomicapp subcommands
 type Base struct {
 	AnswersData        map[string]Answers
-	answersDir         string
+	AnswersDirectory   string
 	MainfileData       *Mainfile
-	targetPath         string
+	TargetPath         string
 	Nodeps             bool
 	DryRun             bool
 	AppPath            string
-	app                string
+	Application        string
 	WriteSampleAnswers bool
 }
 
-//Mainfile is a struct representation of the Nulecule specification file
+//Struct representation of the Nulecule specification file
 type Mainfile struct {
 	Specversion string
 	ID          string
 	Graph       []Component
 }
 
-//Component represents a graph item of the Nulecule file
+//Representing the graph file of Nulecule
 type Component struct {
 	Name      string
 	Source    string
@@ -42,9 +40,9 @@ type Component struct {
 }
 
 //New creates a new base Nulecule object and initializes the fields
-func New(targetPath, app string, dryRun bool) *Base {
-	b := &Base{app: app}
-	b.setTargetPath(targetPath)
+func New(TargetPath, app string, dryRun bool) *Base {
+	b := &Base{Application: app}
+	b.setTargetPath(TargetPath)
 	b.setAnswersDir(b.Target())
 	b.MainfileData = &Mainfile{}
 	b.AnswersData = make(map[string]Answers)
@@ -52,7 +50,7 @@ func New(targetPath, app string, dryRun bool) *Base {
 	return b
 }
 
-//ReadMainFile will read the Nulecule file and fill the MainfileData field
+//Read the Nulecule file and fill the MainfileData field
 func (b *Base) ReadMainFile() error {
 	//Check for valid path
 	targetFile := filepath.Join(b.Target(), constants.MAIN_FILE)
@@ -71,7 +69,7 @@ func (b *Base) ReadMainFile() error {
 	return nil
 }
 
-//CheckSpecVersion verifies that a proper spec version has been provided
+//Verifies that a proper spec version has been provided
 func (b *Base) CheckSpecVersion() error {
 	//Check for specversion property
 	if b.MainfileData.Specversion == "" {
@@ -91,7 +89,7 @@ func (b *Base) CheckSpecVersion() error {
 	return nil
 }
 
-//CheckAllArtifacts will iterate through each entry in graph and check for validity
+//Iterate through each entry in graph and check for validity
 func (b *Base) CheckAllArtifacts() {
 	for _, c := range b.MainfileData.Graph {
 		b.CheckComponentArtifacts(c)
@@ -99,7 +97,7 @@ func (b *Base) CheckAllArtifacts() {
 	}
 }
 
-//CheckComponentArtifacts will verify that valid artifacts exist for each provider in the component
+//Verify that valid artifacts exist for each provider in the component
 func (b *Base) CheckComponentArtifacts(c Component) []string {
 	checkedProviders := make([]string, 0, 100)
 	providerMap := c.Artifacts
@@ -115,7 +113,7 @@ func (b *Base) CheckComponentArtifacts(c Component) []string {
 	return checkedProviders
 }
 
-//CheckComponentArtifacts will verify that valid artifacts exist for the specified provider
+//Verify that valid artifacts exist for the specified provider
 //The specified provider must be a member of the given component
 func (b *Base) checkProviderArtifact(c Component, provider string, checkedProviders *[]string) {
 	logrus.Debugf("Provider : %v", provider)
@@ -137,7 +135,7 @@ func (b *Base) checkProviderArtifact(c Component, provider string, checkedProvid
 					logrus.Errorf("Artifact %s: MISSING.", fullPath)
 				}
 			}
-			//For this artfiact to be 'fully checked',
+			//For this artifact to be 'fully checked',
 			//we need to verify that the inherited providers (if any) are valid as well
 			b.checkInheritence(c, provider, artifactEntry.Repo.Inherit, checkedProviders)
 		}
@@ -184,41 +182,41 @@ func (b *Base) setTargetPath(target string) error {
 			logrus.Fatalf("Failed to get working directory")
 			return errors.New("Failed to set target path")
 		}
-		b.targetPath = cwd
+		b.TargetPath = cwd
 		return nil
 	}
-	b.targetPath = target
+	b.TargetPath = target
 	return nil
 }
 
 //Target is a getter for nulecule base's target field
 func (b *Base) Target() string {
-	if b.targetPath == "" {
+	if b.TargetPath == "" {
 		b.setTargetPath("")
 	}
-	return b.targetPath
+	return b.TargetPath
 }
 
 //AnswersDir returns the base directory in which the answers file lives
 func (b *Base) AnswersDir() string {
-	return b.answersDir
+	return b.AnswersDirectory
 }
 
-func (b *Base) setAnswersDir(answersDir string) error {
-	if !utils.PathExists(answersDir) {
-		if answersDir != "" {
-			logrus.Warnf("Invalid answers directory provided: '%s'. Using '%s' instead", answersDir, b.Target())
+func (b *Base) setAnswersDir(AnswersDirectory string) error {
+	if !utils.PathExists(AnswersDirectory) {
+		if AnswersDirectory != "" {
+			logrus.Warnf("Invalid answers directory provided: '%s'. Using '%s' instead", AnswersDirectory, b.Target())
 		}
-		b.answersDir = b.Target()
+		b.AnswersDirectory = b.Target()
 		return errors.New("Using target path as answers directory")
 	}
-	b.answersDir = answersDir
+	b.AnswersDirectory = AnswersDirectory
 	return nil
 }
 
-//App is a getter for the nulecule base's app field
+//App is a getter for the Nulecule base app field
 func (b *Base) App() string {
-	return b.app
+	return b.Application
 }
 
 //SetYAML is implemented by v1 of the go-yaml package. This method is invoked when go-yaml attempts to parse an ArtifactEntry via Unmarshal()

@@ -9,7 +9,7 @@ import (
 	"github.com/Sirupsen/logrus"
 )
 
-//CopyFile copies a file from source to dest
+//Copies a file from source to dest
 func CopyFile(source, dest string) error {
 	if !PathExists(source) {
 		logrus.Errorf("Cannot copy file at %s: file does not exist", source)
@@ -38,7 +38,7 @@ func CopyFile(source, dest string) error {
 	return nil
 }
 
-//CopyDirectory copies the contents of the directory at source to dest
+//Copies the contents of the directory at source to dest
 func CopyDirectory(source, dest string) error {
 	var err error
 	if !PathExists(source) {

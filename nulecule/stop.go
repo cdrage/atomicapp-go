@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 )
 
-//Stop starts the nulecule run process to undeploy a clustered application
+//Starts the nulecule run process to undeploy a clustered application
 func (b *Base) Stop() {
 	if err := b.ReadMainFile(); err != nil {
 		return
@@ -17,7 +17,7 @@ func (b *Base) Stop() {
 	b.undeployAllProviders()
 }
 
-//undeployAllProviders will iterate through the components
+//Will iterate through the components
 //and undeploy all of its providers
 func (b *Base) undeployAllProviders() {
 	defer b.cleanWorkDirectory()
@@ -41,7 +41,7 @@ func (b *Base) undeployAllProviders() {
 	}
 }
 
-//cleanWorkDirectory removes the .workdir directory once the graph has been deployed.
+//Removes the .workdir directory once the graph has been deployed.
 func (b *Base) cleanWorkDirectory() {
 	workDirectory := filepath.Join(b.Target(), constants.WORKDIR)
 	if utils.PathExists(workDirectory) {
